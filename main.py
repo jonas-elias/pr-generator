@@ -16,7 +16,7 @@ conteudo = arquivo.read()
 
 response = openai.Completion.create(
   model="gpt-3.5-turbo-instruct",
-  prompt=f"Descrição de um pull request do código {conteudo}",
+  prompt=f"Faça uma descrição em português-br para um pull request do código {conteudo}",
   max_tokens=500,
   temperature=0.9
 )
@@ -26,6 +26,7 @@ descricao_pr = response['choices'][0]['text']
 
 command = ['gh', 'pr', 'create', '--title', title_pr, '--body', descricao_pr]
 
+console.print(f'[{option_style}]Carregando...')
 result = subprocess.run(command, capture_output=True, text=True)
 
 if result.returncode != 0:
